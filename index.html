@@ -27,7 +27,7 @@
             overflow-x: hidden;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
         }
 
@@ -86,7 +86,7 @@
             z-index: 10;
             width: 90%;
             max-width: 800px;
-            margin: 40px auto;
+            margin: 20px auto 40px auto;
             text-align: center;
             opacity: 0;
             transform: translateY(30px);
@@ -98,33 +98,68 @@
             transform: translateY(0);
         }
 
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--secondary);
+            color: #000;
+            box-shadow: 0 0 15px var(--secondary);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         .card {
             background: var(--glass);
             backdrop-filter: blur(16px);
             border: 1px solid var(--border);
             border-radius: 24px;
-            padding: 40px 20px;
+            padding: 30px 20px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .glow-title {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 900;
             background: linear-gradient(45deg, #ff007f, #00f3ff, #ffea00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
             margin-bottom: 10px;
-            letter-spacing: 1px;
         }
 
         .name-tag {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 900;
             color: #fff;
             text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 40px var(--secondary);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: inline-block;
             animation: float 3s ease-in-out infinite;
         }
@@ -135,7 +170,7 @@
         }
 
         .cake-container {
-            margin: 30px auto;
+            margin: 20px auto;
             position: relative;
             width: 150px;
             height: 120px;
@@ -182,9 +217,7 @@
             100% { transform: translateX(-50%) scale(1.15); }
         }
 
-        .flame.off {
-            display: none;
-        }
+        .flame.off { display: none; }
 
         .instruction {
             font-size: 0.9rem;
@@ -212,16 +245,53 @@
         }
 
         .wish-box {
-            margin-top: 25px;
-            font-size: 1.2rem;
+            margin-top: 20px;
+            font-size: 1.1rem;
             line-height: 1.6;
             color: #e0e0e0;
-            min-height: 80px;
+            min-height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 0 15px;
         }
 
+        /* Motivation & Extras */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .mini-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: left;
+            transition: 0.3s;
+        }
+
+        .mini-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 243, 255, 0.1);
+        }
+
+        .mini-card h3 {
+            color: var(--secondary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .mini-card p {
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        /* Audio Control */
         .audio-control {
             position: fixed;
             bottom: 20px;
@@ -247,25 +317,84 @@
     </div>
 
     <div class="main-container" id="mainContent">
-        <div class="card">
-            <h1 class="glow-title">HAPPY BIRTHDAY</h1>
-            <div class="name-tag">MISHMA</div>
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab(0)">🎂 Main Wish</button>
+            <button class="tab-btn" onclick="switchTab(1)">🚀 Motivation</button>
+            <button class="tab-btn" onclick="switchTab(2)">🎁 Surprise Box</button>
+            <button class="tab-btn" onclick="switchTab(3)">✨ Blessings</button>
+        </div>
 
-            <div class="cake-container" onclick="blowCandle()">
-                <div class="candle">
-                    <div class="flame" id="flame"></div>
+        <!-- Tab 1: Main Wish -->
+        <div class="tab-content active" id="tab-0">
+            <div class="card">
+                <h1 class="glow-title">HAPPY BIRTHDAY</h1>
+                <div class="name-tag">MISHMA</div>
+
+                <div class="cake-container" onclick="blowCandle()">
+                    <div class="candle">
+                        <div class="flame" id="flame"></div>
+                    </div>
+                    <div class="cake-layer layer-3"></div>
+                    <div class="cake-layer layer-2"></div>
+                    <div class="cake-layer layer-1"></div>
                 </div>
-                <div class="cake-layer layer-3"></div>
-                <div class="cake-layer layer-2"></div>
-                <div class="cake-layer layer-1"></div>
-            </div>
-            <div class="instruction" id="cakeInstruction">Tap the candle flame to blow it out! 🎂</div>
+                <div class="instruction" id="cakeInstruction">Tap the candle flame to blow it out! 🎂</div>
 
-            <div class="wish-box" id="wishText">
-                Wishing you a year filled with endless opportunities, happiness, and incredible achievements! ✨
-            </div>
+                <div class="wish-box" id="wishText">
+                    Wishing you a year filled with endless opportunities, happiness, and incredible achievements! ✨
+                </div>
 
-            <button class="action-btn" onclick="generateWish()">SURPRISE WISH ✨</button>
+                <button class="action-btn" onclick="generateWish()">NEW WISH ✨</button>
+            </div>
+        </div>
+
+        <!-- Tab 2: Motivation -->
+        <div class="tab-content" id="tab-1">
+            <div class="card">
+                <h2 class="glow-title" style="font-size: 2rem;">Vibes & Power</h2>
+                <p style="color: #aaa; margin-bottom: 15px;">Success notes specially dedicated to Mishma!</p>
+                <div class="grid-cards">
+                    <div class="mini-card">
+                        <h3>🌟 Keep Shining</h3>
+                        <p>Your dedication and unique energy can move mountains. Never stop believing in yourself!</p>
+                    </div>
+                    <div class="mini-card">
+                        <h3>🚀 Dream Big</h3>
+                        <p>The future belongs to those who build it with passion. Go conquer your goals!</p>
+                    </div>
+                    <div class="mini-card">
+                        <h3>💪 Fearless Growth</h3>
+                        <p>Every challenge is just a stepping stone to your ultimate success. You've got this!</p>
+                    </div>
+                    <div class="mini-card">
+                        <h3>🎯 Unstoppable</h3>
+                        <p>Stay focused, keep smiling, and let your achievements do all the talking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Surprise Box -->
+        <div class="tab-content" id="tab-2">
+            <div class="card">
+                <h2 class="glow-title" style="font-size: 2rem;">Secret Message Box</h2>
+                <div class="wish-box" id="secretBox" style="font-size: 1.3xl; color: var(--secondary);">
+                    Tap the button below to open a secret note! 🎁
+                </div>
+                <button class="action-btn" onclick="openSecretBox()">OPEN SECRET 🔓</button>
+            </div>
+        </div>
+
+        <!-- Tab 4: Blessings -->
+        <div class="tab-content" id="tab-3">
+            <div class="card">
+                <h2 class="glow-title" style="font-size: 2rem;">Endless Blessings</h2>
+                <p class="wish-box">
+                    May your life always be surrounded by true joy, wonderful friends, peaceful moments, and skyrocketing success today, tomorrow, and forever! Happy Birthday Mishma! 🥂✨
+                </p>
+                <button class="action-btn" onclick="triggerConfetti()">CELEBRATE 🎉</button>
+            </div>
         </div>
     </div>
 
@@ -307,22 +436,16 @@
             }
         }
 
-        for (let i = 0; i < 70; i++) {
-            particles.push(new Particle());
-        }
+        for (let i = 0; i < 70; i++) particles.push(new Particle());
 
         function animateBg() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animateBg);
         }
         animateBg();
 
-        let audioCtx, oscillator;
-        let isMuted = false;
+        let audioCtx, isMuted = false;
 
         function playBgTune() {
             if (isMuted) return;
@@ -365,6 +488,16 @@
             triggerConfetti();
         }
 
+        function switchTab(index) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const btns = document.querySelectorAll('.tab-btn');
+            tabs.forEach((t, i) => {
+                t.classList.toggle('active', i === index);
+                btns[i].classList.toggle('active', i === index);
+            });
+            triggerConfetti();
+        }
+
         let flameBlown = false;
         function blowCandle() {
             if (!flameBlown) {
@@ -382,10 +515,21 @@
             "Wishing you good health, unconditional love, and infinite smiles today and always! 💖"
         ];
         let wishIndex = 0;
-
         function generateWish() {
             wishIndex = (wishIndex + 1) % wishes.length;
             document.getElementById('wishText').innerText = wishes[wishIndex];
+            triggerConfetti();
+        }
+
+        const secrets = [
+            "You bring so much positivity to everyone around you, Mishma! Keep being awesome. 🌟",
+            "May this year bring unexpected surprises and wonderful breakthroughs in your career! 🎯",
+            "Your determination is truly inspiring. Have a fantastic birthday celebration! 🥂"
+        ];
+        let secretIdx = 0;
+        function openSecretBox() {
+            secretIdx = (secretIdx + 1) % secrets.length;
+            document.getElementById('secretBox').innerText = secrets[secretIdx];
             triggerConfetti();
         }
     </script>
